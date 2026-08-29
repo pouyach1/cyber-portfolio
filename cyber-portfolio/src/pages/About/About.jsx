@@ -3,7 +3,7 @@ import AmbientGlows from "../../components/background/AmbientGlows";
 import NoiseOverlay from "../../components/background/NoiseOverlay";
 import ParticleField from "../../components/background/ParticleField";
 import AboutNav from "./components/AboutNav";
-import AboutPresenterStory from "./components/AboutPresenterStory";
+import AboutWorkstation from "./components/AboutWorkstation";
 import DepartureCTA from "./components/DepartureCTA";
 
 export default function About() {
@@ -17,7 +17,7 @@ export default function About() {
       <AboutNav />
 
       <main>
-        <AboutPresenterStory />
+        <AboutWorkstation />
         <DepartureCTA />
       </main>
     </div>
