@@ -1,0 +1,38 @@
+export const initialBots = [
+  {
+    id: "bot-1",
+    name: "DEX Trading Bot",
+    tokenPreview: "7841:AAF•••••••••••kQ2",
+    status: "running",
+    activeUsers: 18420,
+    uptime: 99.9,
+    latency: 85,
+  },
+  {
+    id: "bot-2",
+    name: "Neural Assistant Bot",
+    tokenPreview: "6620:BBH•••••••••••pL7",
+    status: "running",
+    activeUsers: 32110,
+    uptime: 99.8,
+    latency: 120,
+  },
+  {
+    id: "bot-3",
+    name: "VIP Channel Manager",
+    tokenPreview: "5502:CCK•••••••••••rM4",
+    status: "paused",
+    activeUsers: 9200,
+    uptime: 97.2,
+    latency: 95,
+  },
+  {
+    id: "bot-4",
+    name: "Support Ticket Bot",
+    tokenPreview: "4310:DDX•••••••••••tS9",
+    status: "error",
+    activeUsers: 4110,
+    uptime: 88.4,
+    latency: 410,
+  },
+];
