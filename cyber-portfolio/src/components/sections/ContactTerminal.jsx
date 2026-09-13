@@ -62,7 +62,7 @@ export default function ContactTerminal() {
             placeholder="Type a message..."
             className="flex-1 rounded-full border border-slate-700 bg-void/60 px-4 py-2 text-sm text-white placeholder:text-slate-500 focus:border-cyan-neon focus:outline-none"
           />
-          <NeonButton type="submit" variant="cyan">
+          <NeonButton type="submit" variant="cyan" magnetic={false}>
             Send
           </NeonButton>
         </form>

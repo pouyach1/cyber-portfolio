@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { EASE } from "../../lib/motion";
+import Magnetic from "../interaction/Magnetic";
 
 const VARIANTS = {
   cyan: "border-cyan-neon/60 text-cyan-neon hover:shadow-neon-cyan hover:border-cyan-neon hover:bg-cyan-neon/5",
@@ -12,16 +13,18 @@ export default function NeonButton({
   variant = "cyan",
   as: Tag = "button",
   className = "",
+  magnetic = true,
   ...rest
 }) {
   const reduce = useReducedMotion();
   const MotionTag = motion[Tag] ?? motion.button;
 
-  return (
+  const button = (
     <MotionTag
       whileHover={reduce ? undefined : { y: -2, scale: 1.02 }}
       whileTap={reduce ? undefined : { scale: 0.98 }}
       transition={{ duration: 0.35, ease: EASE.snappy }}
+      data-cursor="interactive"
       className={`group relative inline-flex items-center justify-center overflow-hidden rounded-full border bg-void/60 px-6 py-3
         font-heading text-sm font-semibold uppercase tracking-widest transition-[box-shadow,border-color,background-color] duration-500
         ${VARIANTS[variant] ?? VARIANTS.cyan} ${className}`}
@@ -35,4 +38,8 @@ export default function NeonButton({
       />
     </MotionTag>
   );
+
+  if (!magnetic || reduce) return button;
+
+  return <Magnetic>{button}</Magnetic>;
 }
