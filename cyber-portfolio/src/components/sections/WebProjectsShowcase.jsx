@@ -4,7 +4,7 @@ import { webProjects } from "../../data/webProjects";
 
 export default function WebProjectsShowcase() {
   return (
-    <section id="projects" className="section-container">
+    <section id="projects" className="section-container pt-16 md:pt-20">
       <SectionHeading
         eyebrow="Portfolio"
         title="Selected Work"

@@ -9,7 +9,6 @@ import TelegramBotsShowcase from "./components/sections/TelegramBotsShowcase";
 import WebProjectsShowcase from "./components/sections/WebProjectsShowcase";
 import TechStackMatrix from "./components/sections/TechStackMatrix";
 import ExperienceTimeline from "./components/sections/ExperienceTimeline";
-import RobotCreatorStory from "./components/sections/RobotCreatorStory";
 
 import CostEstimator from "./components/configurator/CostEstimator";
 import ContactTerminal from "./components/sections/ContactTerminal";
@@ -18,10 +17,9 @@ import BotSimulatorModal from "./components/modals/BotSimulatorModal";
 import ProjectDetailModal from "./components/modals/ProjectDetailModal";
 
 /**
- * Homepage shell.
- * IMPORTANT: do not put overflow-x-hidden on this root — it creates a scroll
- * containment that breaks position:sticky on RobotCreatorStory.
- * Horizontal clipping is handled on html/body via overflow-x: clip.
+ * Conversion-focused homepage:
+ * Hero → Projects → Capabilities → Contact path (bots/estimator/experience support).
+ * DEX-v2 remains in the Hero only on this page.
  */
 export default function App() {
   return (
@@ -34,11 +32,10 @@ export default function App() {
 
       <main>
         <Hero />
-        <RobotCreatorStory />
-        <TelegramBotsShowcase />
         <WebProjectsShowcase />
-        <CostEstimator />
+        <TelegramBotsShowcase />
         <TechStackMatrix />
+        <CostEstimator />
         <ExperienceTimeline />
         <ContactTerminal />
       </main>
