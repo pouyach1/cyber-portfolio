@@ -4,25 +4,21 @@
  */
 
 export const LENIS = {
-  /** Seconds-feel duration for wheel interpolation */
-  duration: 1.05,
-  wheelMultiplier: 0.92,
-  touchMultiplier: 1.4,
-  /** Sync with existing cinematic ease family */
+  duration: 0.9,
+  wheelMultiplier: 0.95,
+  touchMultiplier: 1.2,
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
 };
 
 export const MAGNETIC = {
-  strength: 0.32,
-  maxPull: 10,
-  spring: { stiffness: 220, damping: 22, mass: 0.35 },
+  strength: 0.22,
+  maxPull: 7,
+  spring: { stiffness: 260, damping: 26, mass: 0.3 },
 };
 
 export const CURSOR = {
-  /** Outer ring follows with soft lag */
-  ringSpring: { stiffness: 180, damping: 24, mass: 0.4 },
-  /** Dot tracks tightly */
-  dotSpring: { stiffness: 500, damping: 35, mass: 0.2 },
+  ringSpring: { stiffness: 200, damping: 28, mass: 0.35 },
+  dotSpring: { stiffness: 520, damping: 38, mass: 0.18 },
   idleScale: 1,
-  hoverScale: 1.55,
+  hoverScale: 1.4,
 };
