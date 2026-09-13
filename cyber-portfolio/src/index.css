@@ -37,6 +37,10 @@
 @layer components {
   .glass-panel {
     @apply relative rounded-2xl border border-cyan-neon/20 bg-panel backdrop-blur-md;
+    transition: border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .neon-text-cyan {
     color: #00f3ff;
@@ -51,6 +55,35 @@
   }
   .section-container {
     @apply mx-auto w-full max-w-7xl px-6 py-24 md:px-10;
+  }
+  /* Premium interactive surfaces */
+  .surface-interactive:hover {
+    border-color: rgba(0, 243, 255, 0.45);
+  }
+  .nav-link {
+    @apply relative font-heading text-xs uppercase tracking-wide text-slate-300 transition-colors duration-300;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, #00f3ff, transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .nav-link:hover {
+    color: #00f3ff;
+  }
+  .nav-link:hover::after {
+    transform: scaleX(1);
+  }
+  .hero-mask-line {
+    display: block;
+    overflow: hidden;
   }
 }
 

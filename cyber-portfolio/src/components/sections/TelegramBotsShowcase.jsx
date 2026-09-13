@@ -32,10 +32,10 @@ export default function TelegramBotsShowcase() {
             <button
               key={cat}
               onClick={() => setCategory(cat)}
-              className={`rounded-full border px-4 py-2 font-heading text-xs uppercase tracking-widest transition-colors
+              className={`rounded-full border px-4 py-2 font-heading text-xs uppercase tracking-widest transition-all duration-300
                 ${
                   category === cat
-                    ? "border-cyan-neon bg-cyan-neon/10 text-cyan-neon"
+                    ? "border-cyan-neon bg-cyan-neon/10 text-cyan-neon shadow-neon-cyan"
                     : "border-slate-700 text-slate-400 hover:border-cyan-neon/50 hover:text-cyan-neon"
                 }`}
             >
@@ -49,7 +49,7 @@ export default function TelegramBotsShowcase() {
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search bots..."
           aria-label="Search bots"
-          className="w-full rounded-full border border-slate-700 bg-void/60 px-4 py-2 text-sm text-white placeholder:text-slate-500 focus:border-cyan-neon focus:outline-none md:w-64"
+          className="w-full rounded-full border border-slate-700 bg-void/60 px-4 py-2 text-sm text-white placeholder:text-slate-500 transition-[border-color,box-shadow] duration-300 focus:border-cyan-neon focus:shadow-neon-cyan focus:outline-none md:w-64"
         />
       </div>
 

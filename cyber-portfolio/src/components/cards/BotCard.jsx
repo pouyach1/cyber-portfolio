@@ -1,14 +1,14 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import GlassPanel from "../ui/GlassPanel";
 import StatusDot from "../ui/StatusDot";
 import NeonButton from "../ui/NeonButton";
 import { useAppStore } from "../../store/useAppStore";
+import { EASE } from "../../lib/motion";
 
 export default function BotCard({ bot, live }) {
   const openBotDemo = useAppStore((s) => s.openBotDemo);
+  const reduce = useReducedMotion();
 
-  // Live Supabase numbers (when connected) override the static demo
-  // metrics shown on the card — same three-stat layout either way.
   const displayMetrics = live
     ? {
         activeUsers: live.active_users?.toLocaleString() ?? bot.metrics.activeUsers,
@@ -19,10 +19,17 @@ export default function BotCard({ bot, live }) {
 
   return (
     <motion.div
-      whileHover={{ y: -6 }}
-      transition={{ type: "spring", stiffness: 260, damping: 20 }}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.65, ease: EASE.cinematic }}
+      whileHover={reduce ? undefined : { y: -8 }}
+      className="h-full"
     >
-      <GlassPanel glow={bot.avatarGlow} className="flex h-full flex-col p-6">
+      <GlassPanel
+        glow={bot.avatarGlow}
+        className="surface-interactive flex h-full flex-col p-6 transition-shadow duration-500 hover:shadow-neon-cyan"
+      >
         <div className="mb-4 flex items-center justify-between">
           <span className="rounded-md border border-purple-neon/30 bg-purple-neon/10 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-purple-neon">
             {bot.badge}
@@ -31,11 +38,16 @@ export default function BotCard({ bot, live }) {
         </div>
 
         <h3 className="font-heading text-lg font-bold text-white">{bot.name}</h3>
-        <p dir="auto" className="mt-2 text-sm text-slate-400">{bot.description}</p>
+        <p dir="auto" className="mt-2 text-sm leading-relaxed text-slate-400">
+          {bot.description}
+        </p>
 
         <div className="mt-4 grid grid-cols-3 gap-2 text-center">
           {Object.entries(displayMetrics).map(([key, value]) => (
-            <div key={key} className="rounded-lg bg-void/40 py-2">
+            <div
+              key={key}
+              className="rounded-lg border border-transparent bg-void/40 py-2 transition-colors duration-300 hover:border-cyan-neon/20"
+            >
               <p className="font-heading text-sm font-bold text-cyan-neon">{value}</p>
               <p className="text-[9px] uppercase tracking-wide text-slate-500">
                 {key.replace(/([A-Z])/g, " $1")}
