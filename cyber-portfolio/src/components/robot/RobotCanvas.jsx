@@ -26,8 +26,8 @@ function useMutableMouse(enabled = true) {
 
 /**
  * Shared robot canvas.
- * Optional `lite` keeps the same RobotModel but drops heavy Environment / soft shadows
- * for the About workstation — defaults preserve homepage Hero / PresenterStoryStage.
+ * Optional `lite` drops heavy Environment / soft shadows for secondary mounts
+ * (e.g. About guide). Hero keeps the fuller render path by default.
  */
 export default function RobotCanvas({
   onInteract,

@@ -8,9 +8,7 @@ import { EASE, DURATION } from "../../lib/motion";
 const headline = ["CREATIVE", "DEVELOPER", "& BOT ARCHITECT"];
 
 /**
- * Hero — calm entrance only. No pointer parallax (that was moving the WebGL
- * canvas every frame and fighting Lenis + sticky story scroll).
- * Advanced motion stays on DEX-v2 inside HeroRobot3D.
+ * Hero — calm entrance; DEX-v2 carries brand motion in HeroRobot3D.
  */
 export default function Hero() {
   const reduce = useReducedMotion();
@@ -18,7 +16,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="section-container relative grid min-h-[100svh] items-center gap-12 pt-36 md:grid-cols-2 md:gap-14 md:pt-40"
+      className="section-container relative grid min-h-[88svh] items-center gap-12 pb-8 pt-36 md:grid-cols-2 md:gap-14 md:pb-12 md:pt-40"
     >
       <div className="relative z-10">
         <motion.div
