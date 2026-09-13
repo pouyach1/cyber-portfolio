@@ -11,8 +11,14 @@ export default function Navbar() {
   const reduce = useReducedMotion();
 
   useEffect(() => {
+    let ticking = false;
     function onScroll() {
-      setScrolled(window.scrollY > 24);
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 24);
+        ticking = false;
+      });
     }
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });

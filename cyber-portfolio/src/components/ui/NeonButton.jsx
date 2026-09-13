@@ -21,20 +21,20 @@ export default function NeonButton({
 
   const button = (
     <MotionTag
-      whileHover={reduce ? undefined : { y: -2, scale: 1.02 }}
-      whileTap={reduce ? undefined : { scale: 0.98 }}
-      transition={{ duration: 0.35, ease: EASE.snappy }}
+      whileHover={reduce ? undefined : { y: -1 }}
+      whileTap={reduce ? undefined : { scale: 0.985 }}
+      transition={{ duration: 0.28, ease: EASE.snappy }}
       data-cursor="interactive"
       className={`group relative inline-flex items-center justify-center overflow-hidden rounded-full border bg-void/60 px-6 py-3
-        font-heading text-sm font-semibold uppercase tracking-widest transition-[box-shadow,border-color,background-color] duration-500
+        font-heading text-sm font-semibold uppercase tracking-widest transition-[box-shadow,border-color,background-color] duration-300
         ${VARIANTS[variant] ?? VARIANTS.cyan} ${className}`}
       {...rest}
     >
       <span className="relative z-10">{children}</span>
       <span
         aria-hidden="true"
-        className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent
-          transition-transform duration-700 ease-out group-hover:translate-x-full"
+        className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/15 to-transparent
+          transition-transform duration-500 ease-out group-hover:translate-x-full"
       />
     </MotionTag>
   );

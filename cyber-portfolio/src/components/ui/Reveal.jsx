@@ -1,17 +1,15 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { EASE, DURATION } from "../../lib/motion";
 
-/**
- * Scroll-triggered reveal — hierarchy and pacing, not decoration.
- */
+/** Lightweight scroll reveal — opacity + small y only. */
 export default function Reveal({
   children,
   className = "",
   delay = 0,
-  y = 36,
+  y = 14,
   as: Tag = "div",
   once = true,
-  amount = 0.22,
+  amount = 0.2,
 }) {
   const reduce = useReducedMotion();
   const MotionTag = motion[Tag] ?? motion.div;
@@ -25,8 +23,8 @@ export default function Reveal({
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once, amount, margin: "0px 0px -6% 0px" }}
-      transition={{ duration: DURATION.slow, delay, ease: EASE.cinematic }}
+      viewport={{ once, amount }}
+      transition={{ duration: DURATION.base, delay, ease: EASE.out }}
     >
       {children}
     </MotionTag>

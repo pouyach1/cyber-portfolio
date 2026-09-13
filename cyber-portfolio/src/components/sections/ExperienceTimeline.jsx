@@ -1,10 +1,12 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import SectionHeading from "../ui/SectionHeading";
 import GlassPanel from "../ui/GlassPanel";
 import { experience } from "../../data/experience";
 import { EASE, DURATION } from "../../lib/motion";
 
 export default function ExperienceTimeline() {
+  const reduce = useReducedMotion();
+
   return (
     <section id="experience" className="section-container">
       <SectionHeading
@@ -17,14 +19,14 @@ export default function ExperienceTimeline() {
         {experience.map((item, i) => (
           <motion.div
             key={item.id}
-            initial={{ opacity: 0, x: -18 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: DURATION.base, delay: i * 0.08, ease: EASE.cinematic }}
+            initial={reduce ? false : { opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: DURATION.base, delay: i * 0.05, ease: EASE.out }}
             className="relative mb-8 last:mb-0"
           >
-            <span className="absolute -left-[38px] top-1.5 h-3 w-3 rounded-full bg-cyan-neon shadow-neon-cyan" />
-            <GlassPanel className="surface-interactive p-5 hover:shadow-neon-cyan">
+            <span className="absolute -left-[38px] top-1.5 h-3 w-3 rounded-full bg-cyan-neon" />
+            <GlassPanel className="surface-interactive p-5">
               <p className="font-heading text-xs uppercase tracking-widest text-purple-neon">
                 {item.period}
               </p>

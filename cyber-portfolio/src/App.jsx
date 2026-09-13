@@ -3,7 +3,6 @@ import Footer from "./components/layout/Footer";
 import NeonGrid from "./components/background/NeonGrid";
 import AmbientGlows from "./components/background/AmbientGlows";
 import NoiseOverlay from "./components/background/NoiseOverlay";
-import ParticleField from "./components/background/ParticleField";
 import Hero from "./components/hero/Hero";
 
 import TelegramBotsShowcase from "./components/sections/TelegramBotsShowcase";
@@ -18,12 +17,17 @@ import ContactTerminal from "./components/sections/ContactTerminal";
 import BotSimulatorModal from "./components/modals/BotSimulatorModal";
 import ProjectDetailModal from "./components/modals/ProjectDetailModal";
 
+/**
+ * Homepage shell.
+ * IMPORTANT: do not put overflow-x-hidden on this root — it creates a scroll
+ * containment that breaks position:sticky on RobotCreatorStory.
+ * Horizontal clipping is handled on html/body via overflow-x: clip.
+ */
 export default function App() {
   return (
-    <div className="relative min-h-screen overflow-x-hidden">
+    <div className="relative min-h-screen">
       <NeonGrid />
       <AmbientGlows />
-      <ParticleField />
       <NoiseOverlay />
 
       <Navbar />
@@ -41,7 +45,6 @@ export default function App() {
 
       <Footer />
 
-      {/* Global overlays */}
       <BotSimulatorModal />
       <ProjectDetailModal />
     </div>

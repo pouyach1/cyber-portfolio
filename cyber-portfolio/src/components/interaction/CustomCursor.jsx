@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 import { CURSOR } from "../../lib/interaction";
 
 /**
- * Desktop-only custom cursor — dot + soft ring.
- * Driven by motion values (no React re-renders on pointermove).
+ * Desktop-only custom cursor.
+ * Hover detection uses a ref flag + rAF-coalesced state to avoid render storms.
  */
 export default function CustomCursor() {
   const reduce = useReducedMotion();
   const [enabled, setEnabled] = useState(false);
   const [visible, setVisible] = useState(false);
   const [hovering, setHovering] = useState(false);
+  const hoveringRef = useRef(false);
+  const rafHover = useRef(0);
 
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
@@ -41,11 +43,16 @@ export default function CustomCursor() {
     };
 
     const onLeave = () => setVisible(false);
+
     const onOver = (e) => {
       const el = e.target.closest(
         "a, button, [role='button'], input, textarea, label, .cursor-pointer, [data-cursor='interactive']"
       );
-      setHovering(Boolean(el));
+      const next = Boolean(el);
+      if (next === hoveringRef.current) return;
+      hoveringRef.current = next;
+      cancelAnimationFrame(rafHover.current);
+      rafHover.current = requestAnimationFrame(() => setHovering(next));
     };
 
     window.addEventListener("pointermove", onMove, { passive: true });
@@ -54,6 +61,7 @@ export default function CustomCursor() {
 
     return () => {
       document.documentElement.classList.remove("has-custom-cursor");
+      cancelAnimationFrame(rafHover.current);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerover", onOver);
       document.documentElement.removeEventListener("mouseleave", onLeave);
@@ -66,20 +74,20 @@ export default function CustomCursor() {
     <div
       aria-hidden="true"
       className="pointer-events-none fixed inset-0 z-[9999] mix-blend-difference"
-      style={{ opacity: visible ? 1 : 0, transition: "opacity 0.25s ease" }}
+      style={{ opacity: visible ? 1 : 0, transition: "opacity 0.2s ease" }}
     >
       <motion.div
         className="absolute top-0 left-0 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white"
         style={{ x: dotX, y: dotY }}
       />
       <motion.div
-        className="absolute top-0 left-0 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/70"
+        className="absolute top-0 left-0 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/60"
         style={{ x: ringX, y: ringY }}
         animate={{
           scale: hovering ? CURSOR.hoverScale : CURSOR.idleScale,
-          opacity: hovering ? 0.85 : 0.55,
+          opacity: hovering ? 0.8 : 0.45,
         }}
-        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
       />
     </div>
   );
