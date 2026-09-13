@@ -9,12 +9,9 @@ export const NAV_LINKS = [
   { label: "About Me", href: "/about" },
   { label: "Telegram Bots", href: "#bots" },
   { label: "Web Projects", href: "#projects" },
-  { label: "Process", href: "#process" },
   { label: "Estimator", href: "#estimator" },
   { label: "Tech Stack", href: "#stack" },
-  { label: "Skills", href: "#skills" },
   { label: "Experience", href: "#experience" },
-  { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
 

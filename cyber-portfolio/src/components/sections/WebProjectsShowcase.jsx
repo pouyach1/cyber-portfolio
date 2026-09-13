@@ -7,8 +7,8 @@ export default function WebProjectsShowcase() {
     <section id="projects" className="section-container">
       <SectionHeading
         eyebrow="Portfolio"
-        title="Web Design & Frontend Projects"
-        description="Interactive interfaces built with a focus on motion and detail."
+        title="Selected Work"
+        description="Interactive interfaces engineered for motion, clarity, and product-grade detail."
       />
       <div className="grid gap-6 md:grid-cols-3">
         {webProjects.map((project) => (

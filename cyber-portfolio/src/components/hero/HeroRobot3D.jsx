@@ -1,20 +1,20 @@
 import { useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import RobotCanvas from "../robot/RobotCanvas";
 import HologramBubble from "../robot/HologramBubble";
 import { playGreetingChirp } from "../../lib/robotSounds";
+import { EASE } from "../../lib/motion";
 
 export default function HeroRobot3D() {
   const [pulse, setPulse] = useState(false);
   const [wavePops, setWavePops] = useState([]);
   const hasGreeted = useRef(false);
+  const reduce = useReducedMotion();
 
   function handleInteract() {
     setPulse(true);
     setTimeout(() => setPulse(false), 900);
 
-    // Greet on the very first click — browsers require a user gesture
-    // before audio is allowed, so this is the earliest we can play it.
     if (!hasGreeted.current) {
       hasGreeted.current = true;
       setTimeout(() => playGreetingChirp(), 250);
@@ -44,7 +44,7 @@ export default function HeroRobot3D() {
             initial={{ opacity: 0, y: 0, scale: 0.6 }}
             animate={{ opacity: 1, y: -60, scale: 1.3 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
+            transition={{ duration: 0.9, ease: EASE.out }}
             className="pointer-events-none absolute left-1/2 top-1/3 -translate-x-1/2 text-3xl"
           >
             👋
@@ -54,9 +54,14 @@ export default function HeroRobot3D() {
 
       <HologramBubble />
       <RobotCanvas onInteract={handleInteract} />
-      <p className="mt-2 text-center font-mono text-xs text-slate-500">
-        click the robot — it'll wave back
-      </p>
+      <motion.p
+        initial={reduce ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
+        className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-slate-500"
+      >
+        Interact — the system responds
+      </motion.p>
     </div>
   );
 }
