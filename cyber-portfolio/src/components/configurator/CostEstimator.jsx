@@ -96,7 +96,9 @@ export default function CostEstimator() {
                 <button onClick={() => setConfiguratorStep(1)} className="font-heading text-xs uppercase tracking-widest text-slate-400 hover:text-white">
                   Back
                 </button>
-                <NeonButton onClick={() => setConfiguratorStep(3)}>Next</NeonButton>
+                <NeonButton magnetic={false} onClick={() => setConfiguratorStep(3)}>
+                  Next
+                </NeonButton>
               </div>
             </motion.div>
           )}

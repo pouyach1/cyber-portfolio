@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import App from "./App";
 import About from "./pages/About/About";
+import InteractionLayer from "./components/interaction/InteractionLayer";
 
 function resolvePage(pathname) {
   const normalized = pathname.replace(/\/+$/, "") || "/";
@@ -17,6 +18,10 @@ export default function AppRouter() {
     return () => window.removeEventListener("popstate", onNavigate);
   }, []);
 
-  if (page === "about") return <About />;
-  return <App />;
+  return (
+    <>
+      <InteractionLayer />
+      {page === "about" ? <About /> : <App />}
+    </>
+  );
 }
