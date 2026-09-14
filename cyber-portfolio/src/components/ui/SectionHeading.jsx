@@ -1,27 +1,69 @@
-import { motion, useReducedMotion } from "framer-motion";
-import { EASE, DURATION } from "../../lib/motion";
+import { useEffect, useRef } from "react";
+import { useReducedMotion } from "framer-motion";
+import { getGsap, CINE_EASE } from "../../lib/gsap";
 
 export default function SectionHeading({ eyebrow, title, description }) {
   const reduce = useReducedMotion();
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (reduce) return undefined;
+    const { gsap } = getGsap();
+    const el = ref.current;
+    if (!el) return undefined;
+
+    const parts = el.querySelectorAll("[data-cine-head]");
+    const tween = gsap.fromTo(
+      parts,
+      { autoAlpha: 0, y: 28 },
+      {
+        autoAlpha: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.1,
+        ease: CINE_EASE,
+        scrollTrigger: {
+          trigger: el,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+
+    return () => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+    };
+  }, [reduce]);
 
   return (
-    <motion.div
-      initial={reduce ? false : { opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.35 }}
-      transition={{ duration: DURATION.base, ease: EASE.out }}
-      className="mb-14 max-w-2xl"
-    >
+    <div ref={ref} className="mb-14 max-w-2xl md:mb-16">
       {eyebrow && (
-        <span className="mb-3 flex items-center gap-3 font-heading text-sm uppercase tracking-[0.3em] text-cyan-neon">
-          <span className="h-px w-6 bg-cyan-neon/70" aria-hidden="true" />
+        <span
+          data-cine-head
+          style={reduce ? undefined : { opacity: 0 }}
+          className="mb-4 flex items-center gap-3 font-heading text-[11px] uppercase tracking-[0.35em] text-cyan-neon md:text-sm"
+        >
+          <span className="h-px w-8 bg-cyan-neon/70" aria-hidden="true" />
           {eyebrow}
         </span>
       )}
-      <h2 className="text-3xl font-bold tracking-wide text-white md:text-4xl">{title}</h2>
+      <h2
+        data-cine-head
+        style={reduce ? undefined : { opacity: 0 }}
+        className="font-display text-3xl font-bold tracking-wide text-white md:text-5xl"
+      >
+        {title}
+      </h2>
       {description && (
-        <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-slate-400">{description}</p>
+        <p
+          data-cine-head
+          style={reduce ? undefined : { opacity: 0 }}
+          className="mt-5 max-w-xl text-[15px] leading-relaxed text-slate-400 md:text-base"
+        >
+          {description}
+        </p>
       )}
-    </motion.div>
+    </div>
   );
 }

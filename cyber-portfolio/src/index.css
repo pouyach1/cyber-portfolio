@@ -98,6 +98,11 @@
   .hero-mask-line {
     display: block;
     overflow: hidden;
+    padding-bottom: 0.06em;
+  }
+  .cine-media-frame {
+    @apply relative overflow-hidden;
+    clip-path: inset(0 0 0 0);
   }
 }
 

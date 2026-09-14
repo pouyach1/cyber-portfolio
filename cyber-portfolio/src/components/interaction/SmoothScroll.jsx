@@ -2,12 +2,10 @@ import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 import { useReducedMotion } from "framer-motion";
 import { LENIS } from "../../lib/interaction";
+import { getGsap } from "../../lib/gsap";
 
 /**
- * Site-wide Lenis smooth scrolling.
- * - Skips when prefers-reduced-motion is on
- * - Uses a single rAF loop; destroyed on unmount
- * - Leaves Framer Motion scroll hooks on native scroll position (Lenis updates root)
+ * Site-wide Lenis smooth scrolling, synced to GSAP ScrollTrigger for cinematic scrub.
  */
 export default function SmoothScroll() {
   const reduce = useReducedMotion();
@@ -17,10 +15,11 @@ export default function SmoothScroll() {
     if (reduce) return undefined;
 
     const prefersFine = window.matchMedia("(pointer: fine)").matches;
-    // Keep native touch/momentum on phones; Lenis wheel smoothing on desktop/laptop.
     if (!prefersFine) return undefined;
 
     document.documentElement.classList.add("lenis");
+
+    const { gsap, ScrollTrigger } = getGsap();
 
     const lenis = new Lenis({
       duration: LENIS.duration,
@@ -32,14 +31,14 @@ export default function SmoothScroll() {
     });
     lenisRef.current = lenis;
 
-    let rafId = 0;
-    const raf = (time) => {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    };
-    rafId = requestAnimationFrame(raf);
+    lenis.on("scroll", ScrollTrigger.update);
 
-    // Smooth in-page anchors without fighting Lenis
+    const tick = (time) => {
+      lenis.raf(time * 1000);
+    };
+    gsap.ticker.add(tick);
+    gsap.ticker.lagSmoothing(0);
+
     const onClick = (event) => {
       const anchor = event.target.closest('a[href^="#"]');
       if (!anchor) return;
@@ -48,13 +47,13 @@ export default function SmoothScroll() {
       const target = document.querySelector(hash);
       if (!target) return;
       event.preventDefault();
-      lenis.scrollTo(target, { offset: -88, duration: 1.15 });
+      lenis.scrollTo(target, { offset: -88, duration: 1.4 });
     };
     document.addEventListener("click", onClick);
 
     return () => {
       document.removeEventListener("click", onClick);
-      cancelAnimationFrame(rafId);
+      gsap.ticker.remove(tick);
       lenis.destroy();
       lenisRef.current = null;
       document.documentElement.classList.remove("lenis");
