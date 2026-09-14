@@ -4,7 +4,7 @@ import { KuroCompanion } from "../robot/kuro";
 import HologramBubble from "../robot/HologramBubble";
 import { EASE, DURATION } from "../../lib/motion";
 
-export default function HeroRobot3D() {
+export default function HeroRobot3D({ compact = false }) {
   const [pulse, setPulse] = useState(false);
   const hasGreeted = useRef(false);
   const reduce = useReducedMotion();
@@ -26,9 +26,11 @@ export default function HeroRobot3D() {
         />
       )}
 
-      <HologramBubble />
+      <div className={compact ? "hidden md:block" : undefined}>
+        <HologramBubble />
+      </div>
       <KuroCompanion
-        scale={1.12}
+        scale={compact ? 1 : 1.12}
         soundEnabled
         showSfx
         onInteract={handleInteract}
@@ -38,7 +40,7 @@ export default function HeroRobot3D() {
         initial={reduce ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4, duration: DURATION.slow, ease: EASE.soft }}
-        className="mt-4 text-center font-mono text-[10px] uppercase tracking-[0.28em] text-slate-500"
+        className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.28em] text-slate-500 md:mt-4"
       >
         Tap Kuro — moods shift
       </motion.p>
