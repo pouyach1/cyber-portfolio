@@ -8,7 +8,7 @@ import { EASE, DURATION } from "../../lib/motion";
 const headline = ["CREATIVE", "DEVELOPER", "& BOT ARCHITECT"];
 
 /**
- * Hero — calm entrance; DEX-v2 carries brand motion in HeroRobot3D.
+ * Hero — calm entrance; Kuro carries brand motion in HeroRobot3D.
  */
 export default function Hero() {
   const reduce = useReducedMotion();

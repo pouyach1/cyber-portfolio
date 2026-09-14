@@ -5,7 +5,7 @@ import AboutNav from "./components/AboutNav";
 import AboutWorkstation from "./components/AboutWorkstation";
 import DepartureCTA from "./components/DepartureCTA";
 
-/** About page — DEX-v2 remains as presentation assistant inside the workstation. */
+/** About page — Kuro remains as presentation assistant inside the workstation. */
 export default function About() {
   return (
     <div className="relative min-h-screen">

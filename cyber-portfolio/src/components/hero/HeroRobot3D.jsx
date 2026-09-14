@@ -1,8 +1,7 @@
 import { useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import RobotCanvas from "../robot/RobotCanvas";
+import { KuroCompanion } from "../robot/kuro";
 import HologramBubble from "../robot/HologramBubble";
-import { playGreetingChirp } from "../../lib/robotSounds";
 import { EASE } from "../../lib/motion";
 
 export default function HeroRobot3D() {
@@ -17,7 +16,6 @@ export default function HeroRobot3D() {
 
     if (!hasGreeted.current) {
       hasGreeted.current = true;
-      setTimeout(() => playGreetingChirp(), 250);
     }
 
     const id = Date.now();
@@ -53,14 +51,20 @@ export default function HeroRobot3D() {
       </AnimatePresence>
 
       <HologramBubble />
-      <RobotCanvas onInteract={handleInteract} />
+      <KuroCompanion
+        scale={1.05}
+        soundEnabled
+        showSfx
+        onInteract={handleInteract}
+        className="mt-2"
+      />
       <motion.p
         initial={reduce ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 0.6 }}
         className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-slate-500"
       >
-        Interact — the system responds
+        Tap Kuro — moods shift
       </motion.p>
     </div>
   );

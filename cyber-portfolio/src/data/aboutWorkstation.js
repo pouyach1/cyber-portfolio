@@ -6,7 +6,7 @@
 export const ABOUT_CREATOR = {
   name: "Pouya",
   role: "Creative Developer & Experience Builder",
-  robotName: "DEX-v2",
+  robotName: "Kuro",
   filePath: "creator/profile.js",
 };
 
