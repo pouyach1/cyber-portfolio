@@ -1,9 +1,11 @@
+import { useCallback, useState } from "react";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import NeonGrid from "./components/background/NeonGrid";
 import AmbientGlows from "./components/background/AmbientGlows";
 import NoiseOverlay from "./components/background/NoiseOverlay";
 import Hero from "./components/hero/Hero";
+import CinematicLoader from "./components/hero/CinematicLoader";
 
 import TelegramBotsShowcase from "./components/sections/TelegramBotsShowcase";
 import WebProjectsShowcase from "./components/sections/WebProjectsShowcase";
@@ -17,13 +19,17 @@ import BotSimulatorModal from "./components/modals/BotSimulatorModal";
 import ProjectDetailModal from "./components/modals/ProjectDetailModal";
 
 /**
- * Conversion-focused homepage:
- * Hero → Projects → Capabilities → Contact path (bots/estimator/experience support).
- * Kuro remains in the Hero only on this page.
+ * Cinematic homepage — loader → hero composition → work → capabilities → contact.
+ * Kuro remains the hero visual anchor.
  */
 export default function App() {
+  const [ready, setReady] = useState(false);
+  const onLoaderDone = useCallback(() => setReady(true), []);
+
   return (
     <div className="relative min-h-screen">
+      <CinematicLoader onComplete={onLoaderDone} />
+
       <NeonGrid />
       <AmbientGlows />
       <NoiseOverlay />
@@ -31,7 +37,7 @@ export default function App() {
       <Navbar />
 
       <main>
-        <Hero />
+        <Hero ready={ready} />
         <WebProjectsShowcase />
         <TelegramBotsShowcase />
         <TechStackMatrix />
