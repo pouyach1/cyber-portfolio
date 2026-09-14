@@ -1,6 +1,6 @@
 export const SITE = {
   name: "Alex Rivera",
-  robotName: "DEX-v2",
+  robotName: "Kuro",
   role: "Creative Developer & Bot Architect",
 };
 
@@ -30,7 +30,7 @@ export const SOCIAL_LINKS = [
 ];
 
 export const ROBOT_MESSAGES = [
-  `Hi, I'm DEX-v2! Welcome to ${SITE.name}'s Cyber Domain.`,
+  `Hi, I'm Kuro! Welcome to ${SITE.name}'s Cyber Domain.`,
   "100% Code Integrity Verified.",
-  "Click me — I'll wave back! 👋",
+  "Tap me — I change moods! ✨",
 ];

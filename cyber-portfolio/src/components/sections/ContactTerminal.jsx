@@ -4,7 +4,7 @@ import GlassPanel from "../ui/GlassPanel";
 import NeonButton from "../ui/NeonButton";
 
 const INITIAL_MESSAGES = [
-  { from: "bot", text: `Hey! I'm DEX-v2. Drop a message and I'll relay it straight to my creator.` },
+  { from: "bot", text: `Hey! I'm Kuro. Drop a message and I'll relay it straight to my creator.` },
 ];
 
 export default function ContactTerminal() {
@@ -36,7 +36,7 @@ export default function ContactTerminal() {
         <div className="flex items-center gap-3 border-b border-purple-neon/20 px-5 py-4">
           <span className="h-2.5 w-2.5 rounded-full bg-emerald-neon" />
           <p className="font-heading text-sm uppercase tracking-widest text-slate-300">
-            DEX-v2 // live chat
+            Kuro // live chat
           </p>
         </div>
 

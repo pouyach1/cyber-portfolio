@@ -19,7 +19,7 @@ import ProjectDetailModal from "./components/modals/ProjectDetailModal";
 /**
  * Conversion-focused homepage:
  * Hero → Projects → Capabilities → Contact path (bots/estimator/experience support).
- * DEX-v2 remains in the Hero only on this page.
+ * Kuro remains in the Hero only on this page.
  */
 export default function App() {
   return (

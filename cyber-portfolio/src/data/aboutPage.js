@@ -7,7 +7,7 @@ export const PLACEHOLDER_NOTE =
   "Placeholder content — replace bracketed fields with your real story and details.";
 
 export const bootLines = [
-  "DEX-v2 IDENTITY KERNEL v3.2",
+  "KURO IDENTITY KERNEL v3.2",
   ">> mounting neural profile...",
   ">> decrypting creator dossier...",
   ">> calibrating holographic panels...",
