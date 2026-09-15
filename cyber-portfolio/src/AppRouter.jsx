@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import App from "./App";
 import About from "./pages/About/About";
 import InteractionLayer from "./components/interaction/InteractionLayer";
+import { MotionFoundation } from "./motion";
 
 function resolvePage(pathname) {
   const normalized = pathname.replace(/\/+$/, "") || "/";
@@ -20,6 +21,7 @@ export default function AppRouter() {
 
   return (
     <>
+      <MotionFoundation />
       <InteractionLayer />
       {page === "about" ? <About /> : <App />}
     </>
