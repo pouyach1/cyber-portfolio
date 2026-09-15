@@ -4,7 +4,9 @@ import { startMetricsTracking, refreshMetrics } from "./metrics";
 import MotionDiagnostics from "./MotionDiagnostics";
 
 /**
- * Mounts Stage 1 motion infrastructure once (site-wide).
+ * Mounts Milan motion infrastructure once (site-wide).
+ * Stage 1: RAF / metrics / reduced-motion
+ * Stage 2: Lenis scroll is wired via SmoothScroll → scroll abstraction
  * No visual redesign — diagnostics render only in DEV.
  */
 export default function MotionFoundation() {

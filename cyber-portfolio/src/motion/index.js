@@ -1,10 +1,16 @@
 /**
- * Milan motion foundation — Stage 1 public API.
+ * Milan motion foundation — Stage 1–2 public API.
  * Existing `src/lib/motion.js` remains the Framer Motion reveal language.
  */
 
 export { motionState } from "./state";
-export { getScrollY, setScrollReader } from "./scroll";
+export {
+  getScrollY,
+  setScrollReader,
+  resetScrollReader,
+  reportScrollY,
+  isCustomScrollReader,
+} from "./scroll";
 export {
   getReducedMotion,
   onReducedMotionChange,

@@ -2,23 +2,31 @@ import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 import { useReducedMotion } from "framer-motion";
 import { LENIS } from "../../lib/interaction";
+import { reportScrollY, resetScrollReader, setScrollReader } from "../../motion/scroll";
 
 /**
  * Site-wide Lenis smooth scrolling.
  * - Skips when prefers-reduced-motion is on
  * - Uses a single rAF loop; destroyed on unmount
  * - Leaves Framer Motion scroll hooks on native scroll position (Lenis updates root)
+ * - Stage 2: wires Lenis scroll into Milan motion getScrollY / motionState.y
  */
 export default function SmoothScroll() {
   const reduce = useReducedMotion();
   const lenisRef = useRef(null);
 
   useEffect(() => {
-    if (reduce) return undefined;
+    if (reduce) {
+      resetScrollReader();
+      return undefined;
+    }
 
     const prefersFine = window.matchMedia("(pointer: fine)").matches;
     // Keep native touch/momentum on phones; Lenis wheel smoothing on desktop/laptop.
-    if (!prefersFine) return undefined;
+    if (!prefersFine) {
+      resetScrollReader();
+      return undefined;
+    }
 
     document.documentElement.classList.add("lenis");
 
@@ -31,6 +39,16 @@ export default function SmoothScroll() {
       autoRaf: false,
     });
     lenisRef.current = lenis;
+
+    // Authoritative scroll source for Milan motion modules (no Lenis imports needed).
+    setScrollReader(() => lenis.scroll);
+    reportScrollY(lenis.scroll);
+
+    const onLenisScroll = (instance) => {
+      // Lenis emits the instance on "scroll"; keep this callback allocation-free-ish.
+      reportScrollY(instance?.scroll ?? lenis.scroll);
+    };
+    const offScroll = lenis.on("scroll", onLenisScroll);
 
     let rafId = 0;
     const raf = (time) => {
@@ -55,8 +73,10 @@ export default function SmoothScroll() {
     return () => {
       document.removeEventListener("click", onClick);
       cancelAnimationFrame(rafId);
+      if (typeof offScroll === "function") offScroll();
       lenis.destroy();
       lenisRef.current = null;
+      resetScrollReader();
       document.documentElement.classList.remove("lenis");
     };
   }, [reduce]);

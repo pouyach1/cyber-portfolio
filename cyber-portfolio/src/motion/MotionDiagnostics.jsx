@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { subscribe, isMasterRafRunning, getSubscriberCount } from "./masterRaf";
 import { motionState } from "./state";
 import { metrics } from "./metrics";
+import { isCustomScrollReader } from "./scroll";
 
 /**
  * DEV-only motion foundation diagnostic.
@@ -17,8 +18,9 @@ export default function MotionDiagnostics() {
       const el = preRef.current;
       if (!el) return;
       el.textContent = [
-        "[milan-motion Stage 1]",
+        "[milan-motion Stage 2]",
         `raf: ${isMasterRafRunning() ? "on" : "off"}  subs: ${getSubscriberCount()}`,
+        `scrollSource: ${isCustomScrollReader() ? "lenis" : "native"}`,
         `y: ${frame.y.toFixed(1)}`,
         `H: ${frame.H}`,
         `time: ${frame.time.toFixed(2)}s`,
